@@ -50,8 +50,8 @@ class LanguageManager extends ChangeNotifier {
       return;
     }
 
-    final locales = WidgetsBinding.instance!.window.locales;
-    locales.insert(0, WidgetsBinding.instance!.window.locale);
+    final locales = WidgetsBinding.instance.window.locales;
+    locales.insert(0, WidgetsBinding.instance.window.locale);
 
     for (final locale in locales) {
       final language =

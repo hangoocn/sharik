@@ -37,7 +37,7 @@ Future<void> processAll() async {
 
   for (final file in files) {
     final contents = await File(file.path).readAsString();
-    print('processing ${file.path.split('/').last}');
+    print('processing ${file.path.split(Platform.pathSeparator).last}');
 
     final processed = await processSingle(contents);
     await File(file.path).writeAsString(processed);

@@ -123,7 +123,7 @@ class LanguageButton extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: SvgPicture.asset(
-              'assets/flags_gen/${_language.localizations.s_flag}.svg',
+              'assets/flags_gen/gb-eng.svg',
               height: 50,
             ),
           ),

@@ -21,7 +21,7 @@ class ThemeManager extends ChangeNotifier {
   }
 
   Brightness get brightness => _theme == ThemeMode.system
-      ? SchedulerBinding.instance!.window.platformBrightness
+      ? SchedulerBinding.instance.window.platformBrightness
       : (_theme == ThemeMode.dark ? Brightness.dark : Brightness.light);
 
   void change() {

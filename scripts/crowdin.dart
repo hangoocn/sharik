@@ -33,22 +33,15 @@ Future<void> updateLanguageFlags() async {
   final flags = <String>{};
 
   for (final file in files) {
-    final contents = File(file.path).readAsStringSync();
-    final json = jsonDecode(contents) as Map;
-    final flag = json['s_flag'] as String?;
-
-    if (flag != null) {
-      flags.add(flag);
-    }
+    final flag = file.path.split(Platform.pathSeparator).last.replaceAll('app_', '').replaceAll('.arb', '');
+    flags.add(flag); 
   }
 
   final flagFiles = Directory('_tmp_flags').listSync();
   for (final flag in flagFiles) {
-    final name = flag.path.split('/').last.split('.').first;
+    final name = flag.path.split(Platform.pathSeparator).last.split('.').first;
 
-    // print('$name');
     if (flags.contains(name)) {
-      print('adding $name');
       final contents = File(flag.path).readAsStringSync();
 
       final file = File('assets/flags_gen/$name.svg');
@@ -60,15 +53,15 @@ Future<void> updateLanguageFlags() async {
 }
 
 Future<void> updateLanguageConfig() async {
-  var code =
-      '/// GENERATED USING scripts/crowdin.dart | DO NOT EDIT MANUALLY\n\n';
+  final buffer = StringBuffer();
+  buffer.write('/// GENERATED USING scripts/crowdin.dart | DO NOT EDIT MANUALLY\n\n');
 
   final files = Directory('.dart_tool/flutter_gen/gen_l10n').listSync();
   final languageObjects = [];
 
   for (final file in files) {
-    final name = file.path.split('/').last;
-    code += "import 'package:flutter_gen/gen_l10n/$name';\n";
+    final name = file.path.split(Platform.pathSeparator).last;
+    buffer.write("import 'package:flutter_gen/gen_l10n/$name';\n");
 
     // composing language objects
     languageObjects.add("""
@@ -78,19 +71,19 @@ Future<void> updateLanguageConfig() async {
         nameLocal: 'English',
         locale: const Locale('en'),
         localizations: AppLocalizationsEn(),
-      ),\n""");
+      ),\n""",);
   }
 
-  code += "import 'package:flutter/material.dart';\n";
-  code += "import '../logic/language.dart';\n";
+  buffer.write("import 'package:flutter/material.dart';\n");
+  buffer.write("import '../logic/language.dart';\n");
 
-  code += '\n\n';
+  buffer.write('\n\n');
 
-  code += 'List<Language> get languageListGen => [\n';
-  code += languageObjects.join();
-  code += '\n];\n';
+  buffer.write('List<Language> get languageListGen => [\n');
+  buffer.write(languageObjects.join());
+  buffer.write('\n];\n');
 
-  File('lib/gen/languages.dart').writeAsStringSync(code);
+  File('lib/gen/languages.dart').writeAsStringSync(buffer.toString());
 }
 
 Future<void> clearCurrentTranslations() async {
