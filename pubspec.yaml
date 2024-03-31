@@ -70,6 +70,7 @@ dependencies:
 
   # ANALYTICS
   ackee_dart: ^0.0.2
+  path_provider: ^2.1.2
 
 
 

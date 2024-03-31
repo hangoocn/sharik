@@ -157,13 +157,13 @@ class Receiver {
   });
 
   factory Receiver.fromJson({required NetworkAddr addr, required String json}) {
-    final parsed = jsonDecode(json);
+    final parsed = jsonDecode(json) as Map;
 
     return Receiver(
       addr: addr,
-      os: parsed['os'] as String,
-      name: parsed['name'] as String,
-      type: string2fileType(parsed['type'] as String),
+      os: parsed['os'],
+      name: parsed['name'],
+      type: string2fileType(parsed['type']),
     );
   }
 }
