@@ -436,7 +436,6 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 24),
                 AnimatedSize(
-                  vsync: this,
                   duration: const Duration(milliseconds: 200),
                   child: _stateShowQr
                       ? QrImage(

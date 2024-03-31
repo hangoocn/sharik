@@ -120,7 +120,8 @@ class SharikApp extends StatelessWidget {
           ),
 
           // sharik top icon color
-          accentColor: Colors.deepPurple.shade500,
+          colorScheme: ColorScheme.fromSwatch()
+            .copyWith(secondary: Colors.deepPurple.shade500),
 
           // primarySwatch: Colors.deepPurple,
 
@@ -131,12 +132,10 @@ class SharikApp extends StatelessWidget {
           dividerColor: Colors.deepPurple.shade400,
 
           // about card color
-          buttonColor: Colors.deepPurple.shade50.withOpacity(0.6),
+          highlightColor: Colors.deepPurple.shade50.withOpacity(0.6),
         ),
         darkTheme: ThemeData(
           splashFactory: MaterialInkSplash.splashFactory,
-
-          brightness: Brightness.dark,
           inputDecorationTheme: InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
@@ -154,8 +153,8 @@ class SharikApp extends StatelessWidget {
             selectionColor: Colors.deepPurple.shade50.withOpacity(0.4),
           ),
 
-          // sharik top icon color
-          accentColor: Colors.deepPurple.shade300,
+          colorScheme: ColorScheme.fromSwatch()
+            .copyWith(secondary: Colors.deepPurple.shade500, brightness: Brightness.dark),
 
           // right click selection color
           cardColor: Colors.deepPurple.shade400.withOpacity(0.9),
@@ -164,7 +163,7 @@ class SharikApp extends StatelessWidget {
           dividerColor: Colors.deepPurple.shade50,
 
           // about card color
-          buttonColor: Colors.deepPurple.shade100.withOpacity(0.8),
+          highlightColor: Colors.deepPurple.shade100.withOpacity(0.8),
         ),
         themeMode: context.watch<ThemeManager>().theme,
         home: LoadingScreen(),
