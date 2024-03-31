@@ -1,29 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_ar.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_de.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_es.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_fa.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_fr.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_it.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_ja.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_ml.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_pl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_pt.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_ru.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_te.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_th.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
 
-import 'logic/language.dart';
 import 'logic/sharing_object.dart';
 import 'screens/about.dart';
 import 'screens/error.dart';
+import 'screens/file_manager.dart';
 import 'screens/home.dart';
 import 'screens/intro.dart';
 import 'screens/languages.dart';
@@ -257,7 +237,7 @@ Widget screen2widget(Screens s, [Object? args]) {
     case Screens.intro:
       return IntroScreen();
     case Screens.home:
-      return HomeScreen();
+      return FileManagerScreen();
     case Screens.about:
       return AboutScreen();
     case Screens.sharing:
