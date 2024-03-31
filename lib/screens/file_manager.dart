@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../components/downloader.dart';
 import '../logic/services/receiver_service.dart';
 
 class FileManagerScreen extends StatefulWidget {
@@ -45,7 +46,8 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
                               '设备 ${receivers[index].os} ${receivers[index].addr.ip}',
                             ),
                             const SizedBox(height: 8),
-                            Text('文件 ${receivers[index].name}')
+                            Text('文件 ${receivers[index].name}'),
+                            Downloader(url: receivers[index].url, device: receivers[index].addr.ip, name: receivers[index].name),
                           ],
                         ),
                       ),

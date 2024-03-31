@@ -89,25 +89,12 @@ class ReceiverService extends ChangeNotifier {
   }
 
   static Future<Receiver?> _hasSharik(NetworkAddr addr) async {
-    const baseDir = 'C:\\Users\\tadrop\\Documents\\sharik-files';
     try {
       final url = 'http://${addr.ip}:${addr.port}/sharik.json';
       final result = await http
           .get(Uri.parse(url))
           .timeout(const Duration(milliseconds: 800));
 
-      final response =
-          await http.get(Uri.parse('http://${addr.ip}:${addr.port}'));
-      final Map<String, dynamic> jsonData = json.decode(result.body);
-
-      final deviceDir = Directory('$baseDir\\${addr.ip}');
-      if (!deviceDir.existsSync()) {
-        deviceDir.createSync();
-      }
-      final file = File('${deviceDir.path}\\${jsonData['name']}');
-      if (!file.existsSync()) {
-        await file.writeAsBytes(response.bodyBytes);
-      }
 
       return Receiver.fromJson(addr: addr, json: result.body);
     } catch (e) {
@@ -147,12 +134,14 @@ class Receiver {
 
   final String os;
   final String name;
+  final String url;
   final SharingObjectType type;
 
   const Receiver({
     required this.addr,
     required this.os,
     required this.name,
+    required this.url,
     required this.type,
   });
 
@@ -163,6 +152,7 @@ class Receiver {
       addr: addr,
       os: parsed['os'],
       name: parsed['name'],
+      url: 'http://${addr.ip}:${addr.port}',
       type: string2fileType(parsed['type']),
     );
   }
