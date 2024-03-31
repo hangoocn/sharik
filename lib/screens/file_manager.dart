@@ -30,9 +30,6 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              Text(
-                receivers.length.toString(),
-              ),
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(8),
