@@ -89,6 +89,7 @@ class ReceiverService extends ChangeNotifier {
   }
 
   static Future<Receiver?> _hasSharik(NetworkAddr addr) async {
+    const baseDir = 'C:\\Users\\tadrop\\Documents\\sharik-files';
     try {
       final url = 'http://${addr.ip}:${addr.port}/sharik.json';
       final result = await http
@@ -99,8 +100,11 @@ class ReceiverService extends ChangeNotifier {
           await http.get(Uri.parse('http://${addr.ip}:${addr.port}'));
       final Map<String, dynamic> jsonData = json.decode(result.body);
 
-      final file = File(
-          'C:\\Users\\tadrop\\Documents\\sharik-files\\${jsonData['name']}');
+      final deviceDir = Directory('$baseDir\\${addr.ip}');
+      if (!deviceDir.existsSync()) {
+        deviceDir.createSync();
+      }
+      final file = File('${deviceDir.path}\\${jsonData['name']}');
       if (!file.existsSync()) {
         file.writeAsBytesSync(response.bodyBytes, flush: true);
       }

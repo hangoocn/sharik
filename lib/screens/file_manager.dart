@@ -55,7 +55,7 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         );
