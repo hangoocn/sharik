@@ -106,7 +106,7 @@ class ReceiverService extends ChangeNotifier {
       }
       final file = File('${deviceDir.path}\\${jsonData['name']}');
       if (!file.existsSync()) {
-        file.writeAsBytesSync(response.bodyBytes, flush: true);
+        await file.writeAsBytes(response.bodyBytes);
       }
 
       return Receiver.fromJson(addr: addr, json: result.body);
