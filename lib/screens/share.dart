@@ -196,7 +196,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               ),
               Expanded(
                 child: Scrollbar(
-                  isAlwaysShown: true,
+                  thumbVisibility: true,
                   controller: fileNameScroller,
                   child: SingleChildScrollView(
                     controller: fileNameScroller,
@@ -342,7 +342,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Scrollbar(
                     controller: urlScroller,
-                    isAlwaysShown: true,
+                    thumbVisibility: true,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       controller: urlScroller,
