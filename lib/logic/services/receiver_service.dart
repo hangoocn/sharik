@@ -43,50 +43,49 @@ class ReceiverService extends ChangeNotifier {
   }
 
   static Future<List<Receiver>> _run(String _ip) async {
-        final result = <Receiver>[];
+    final result = <Receiver>[];
     try {
-       final _ = _ip.split('.');
-    final thisDevice = int.parse(_.removeLast());
+      final _ = _ip.split('.');
+      final thisDevice = int.parse(_.removeLast());
 
-    final ip = _.join('.');
+      final ip = _.join('.');
 
-    final devices = [
-      for (var e in List.generate(254, (index) => index + 1))
-        if (e != thisDevice) '$ip.$e'
-    ];
+      final devices = [
+        for (var e in List.generate(254, (index) => index + 1))
+          if (e != thisDevice) '$ip.$e'
+      ];
 
-    final futuresPing = <NetworkAddr, Future<bool>>{};
+      final futuresPing = <NetworkAddr, Future<bool>>{};
 
-    // todo run first port every time, second every second time, etc
-    for (final device in devices) {
-      for (final port in ports) {
-        final n = NetworkAddr(ip: device, port: port);
-        futuresPing[n] = _ping(n);
+      // todo run first port every time, second every second time, etc
+      for (final device in devices) {
+        for (final port in ports) {
+          final n = NetworkAddr(ip: device, port: port);
+          futuresPing[n] = _ping(n);
+        }
       }
-    }
 
-    final futuresSharik = <Future<Receiver?>>[];
+      final futuresSharik = <Future<Receiver?>>[];
 
-    for (final ping in futuresPing.entries) {
-      final p = await ping.value;
+      for (final ping in futuresPing.entries) {
+        final p = await ping.value;
 
-      if (p) {
-        futuresSharik.add(_hasSharik(ping.key));
+        if (p) {
+          futuresSharik.add(_hasSharik(ping.key));
+        }
       }
-    }
 
-    for (final sharik in futuresSharik) {
-      final r = await sharik;
-      if (r != null) {
-        result.add(r);
+      for (final sharik in futuresSharik) {
+        final r = await sharik;
+        if (r != null) {
+          result.add(r);
+        }
       }
-    }
 
-    return result;
-    } catch(e) {
+      return result;
+    } catch (e) {
       return result;
     }
-   
   }
 
   static Future<Receiver?> _hasSharik(NetworkAddr addr) async {
@@ -100,9 +99,11 @@ class ReceiverService extends ChangeNotifier {
           await http.get(Uri.parse('http://${addr.ip}:${addr.port}'));
       final Map<String, dynamic> jsonData = json.decode(result.body);
 
-      final file =
-          File('C:\\Users\\tadrop\\Documents\\sharik-files\\${jsonData['name']}');
-      file.writeAsBytesSync(response.bodyBytes, flush: true);
+      final file = File(
+          'C:\\Users\\tadrop\\Documents\\sharik-files\\${jsonData['name']}');
+      if (!file.existsSync()) {
+        file.writeAsBytesSync(response.bodyBytes, flush: true);
+      }
 
       return Receiver.fromJson(addr: addr, json: result.body);
     } catch (e) {
@@ -162,4 +163,3 @@ class Receiver {
     );
   }
 }
-
