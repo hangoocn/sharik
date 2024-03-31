@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 import '../../conf.dart';
 import '../sharing_object.dart';
@@ -44,7 +43,9 @@ class ReceiverService extends ChangeNotifier {
   }
 
   static Future<List<Receiver>> _run(String _ip) async {
-    final _ = _ip.split('.');
+        final result = <Receiver>[];
+    try {
+       final _ = _ip.split('.');
     final thisDevice = int.parse(_.removeLast());
 
     final ip = _.join('.');
@@ -74,8 +75,6 @@ class ReceiverService extends ChangeNotifier {
       }
     }
 
-    final result = <Receiver>[];
-
     for (final sharik in futuresSharik) {
       final r = await sharik;
       if (r != null) {
@@ -84,6 +83,10 @@ class ReceiverService extends ChangeNotifier {
     }
 
     return result;
+    } catch(e) {
+      return result;
+    }
+   
   }
 
   static Future<Receiver?> _hasSharik(NetworkAddr addr) async {
@@ -98,7 +101,7 @@ class ReceiverService extends ChangeNotifier {
       final Map<String, dynamic> jsonData = json.decode(result.body);
 
       final file =
-          File('C:\\Users\\tadrop\\Documents\\sharik\\${jsonData['name']}');
+          File('C:\\Users\\tadrop\\Documents\\sharik-files\\${jsonData['name']}');
       file.writeAsBytesSync(response.bodyBytes, flush: true);
 
       return Receiver.fromJson(addr: addr, json: result.body);
@@ -160,34 +163,3 @@ class Receiver {
   }
 }
 
-Future<String> get _localPath async {
-  final directory = await getApplicationDocumentsDirectory();
-
-  return directory.path;
-}
-
-Future<File> get _localFile async {
-  final path = await _localPath;
-  return File('$path/counter.txt');
-}
-
-Future<File> writeCounter(int counter) async {
-  final file = await _localFile;
-
-  // Write the file
-  return file.writeAsString('$counter');
-}
-
-Future<int> readCounter() async {
-  try {
-    final file = await _localFile;
-
-    // Read the file
-    final contents = await file.readAsString();
-
-    return int.parse(contents);
-  } catch (e) {
-    // If encountering an error, return 0
-    return 0;
-  }
-}

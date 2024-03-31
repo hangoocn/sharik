@@ -4,13 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import '../logic/services/receiver_service.dart';
 
-import 'conf.dart';
 import 'gen/languages.dart';
 import 'logic/language.dart';
 import 'logic/theme.dart';
-import 'screens/loading.dart';
+import 'screens/file_manager.dart';
 import 'utils/material_ink_well.dart';
 
 // todo before migrating locales:
@@ -27,14 +25,12 @@ import 'utils/material_ink_well.dart';
 
 // todo review variables' access scope
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final ReceiverService receiverService = ReceiverService()..init();
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LanguageManager()),
         ChangeNotifierProvider(create: (_) => ThemeManager()),
-        ChangeNotifierProvider(create: (_) => receiverService)
       ],
       child: SharikApp(),
     ),
@@ -167,7 +163,7 @@ class SharikApp extends StatelessWidget {
           highlightColor: Colors.deepPurple.shade100.withOpacity(0.8),
         ),
         themeMode: context.watch<ThemeManager>().theme,
-        home: LoadingScreen(),
+        home: FileManagerScreen(),
       ),
     );
   }
