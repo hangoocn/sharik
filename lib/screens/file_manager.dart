@@ -23,7 +23,7 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
     return ChangeNotifierProvider.value(
       value: receiverService,
       builder: (context, _) {
-        context.watch<ReceiverService>();
+        final receivers = context.watch<ReceiverService>().receivers;
 
         return Scaffold(
           body: Column(
@@ -31,18 +31,30 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
             children: [
               const SizedBox(height: 24),
               Text(
-                  context.watch<ReceiverService>().receivers.length.toString()),
+                receivers.length.toString(),
+              ),
               Expanded(
                 child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 50,
-                        color: Colors.amber[colorCodes[index]],
-                        child: Center(child: Text('Entry ${entries[index]}')),
-                      );
-                    }),
+                  padding: const EdgeInsets.all(8),
+                  itemCount: receivers.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.amber[colorCodes[index]],
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              '设备 ${receivers[index].os} ${receivers[index].addr.ip}',
+                            ),
+                            const SizedBox(height: 8),
+                            Text('文件 ${receivers[index].name}')
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               )
             ],
           ),
