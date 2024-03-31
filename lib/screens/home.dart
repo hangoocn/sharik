@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:provider/provider.dart';
 
 import '../components/buttons.dart';
 import '../components/logo.dart';
@@ -13,6 +14,7 @@ import '../dialogs/open_dialog.dart';
 import '../dialogs/receive.dart';
 import '../dialogs/send.dart';
 import '../dialogs/tracking_consent.dart';
+import '../logic/services/receiver_service.dart';
 import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
@@ -63,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext c) {
+  Widget build(BuildContext context) {
     return RepaintBoundary(
       key: _globalKey,
       child: Scaffold(
@@ -82,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               tag: 'icon',
               child: SharikLogo(),
             ),
+            Text(context.watch<ReceiverService>().receivers.length.toString()),
             const SizedBox(height: 24),
             Expanded(
               child: LayoutBuilder(
@@ -92,12 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
                         children: [
-                          _sharingButtons(c),
+                          _sharingButtons(context),
                           const SizedBox(
                             height: 24,
                           ),
                           Expanded(
-                            child: _sharingHistoryList(c),
+                            child: _sharingHistoryList(context),
                           ),
                         ],
                       ),
@@ -107,9 +110,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(width: 24),
-                        Expanded(child: _sharingButtons(c)),
+                        Expanded(child: _sharingButtons(context)),
                         const SizedBox(width: 24),
-                        Expanded(child: _sharingHistoryList(c)),
+                        Expanded(child: _sharingHistoryList(context)),
                         const SizedBox(width: 24),
                       ],
                     );

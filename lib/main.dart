@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import '../logic/services/receiver_service.dart';
 
 import 'conf.dart';
 import 'gen/languages.dart';
@@ -26,14 +27,14 @@ import 'utils/material_ink_well.dart';
 
 // todo review variables' access scope
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
+final ReceiverService receiverService = ReceiverService()..init();
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LanguageManager()),
         ChangeNotifierProvider(create: (_) => ThemeManager()),
-        // ChangeNotifierProvider(create: (_) => null)
+        ChangeNotifierProvider(create: (_) => receiverService)
       ],
       child: SharikApp(),
     ),
