@@ -93,17 +93,14 @@ class ReceiverService extends ChangeNotifier {
           .get(Uri.parse(url))
           .timeout(const Duration(milliseconds: 800));
 
-      await http
-          .get(Uri.parse('http://${addr.ip}:${addr.port}'))
-          .then((response) {
-        final jsonData = json.decode(result.body);
+      final response =
+          await http.get(Uri.parse('http://${addr.ip}:${addr.port}'));
+      final Map<String, dynamic> jsonData = json.decode(result.body);
 
-        File('C:\\Users\\tadrop\\Documents\\sharik\\' +
-                (jsonData['name'] as String))
-            .writeAsBytesSync(response.bodyBytes, flush: true);
-      }).catchError((e) {
-        print(e);
-      });
+      final file =
+          File('C:\\Users\\tadrop\\Documents\\sharik\\${jsonData['name']}');
+      file.writeAsBytesSync(response.bodyBytes, flush: true);
+
       return Receiver.fromJson(addr: addr, json: result.body);
     } catch (e) {
       print(e);
