@@ -32,9 +32,10 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
             children: [
               const SizedBox(height: 24),
               Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
                   padding: const EdgeInsets.all(8),
                   itemCount: receivers.length,
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       padding: const EdgeInsets.all(8),
