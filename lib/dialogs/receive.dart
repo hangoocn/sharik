@@ -136,9 +136,8 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
                                 ),
                               ),
                               onTap: () {
-                                launch(
-                                  'http://${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}',
-                                );
+                                final url = 'http://${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}';
+                                launchUrl(Uri.parse(url));
                               },
                             ),
                           ),

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import '../../conf.dart';
 import '../sharing_object.dart';
@@ -87,12 +88,25 @@ class ReceiverService extends ChangeNotifier {
 
   static Future<Receiver?> _hasSharik(NetworkAddr addr) async {
     try {
+      final url = 'http://${addr.ip}:${addr.port}/sharik.json';
       final result = await http
-          .get(Uri.parse('http://${addr.ip}:${addr.port}/sharik.json'))
+          .get(Uri.parse(url))
           .timeout(const Duration(milliseconds: 800));
 
+      await http
+          .get(Uri.parse('http://${addr.ip}:${addr.port}'))
+          .then((response) {
+        final jsonData = json.decode(result.body);
+
+        File('C:\\Users\\tadrop\\Documents\\sharik\\' +
+                (jsonData['name'] as String))
+            .writeAsBytesSync(response.bodyBytes, flush: true);
+      }).catchError((e) {
+        print(e);
+      });
       return Receiver.fromJson(addr: addr, json: result.body);
-    } catch (_) {
+    } catch (e) {
+      print(e);
       return null;
     }
   }
@@ -146,5 +160,37 @@ class Receiver {
       name: parsed['name'] as String,
       type: string2fileType(parsed['type'] as String),
     );
+  }
+}
+
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  return directory.path;
+}
+
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/counter.txt');
+}
+
+Future<File> writeCounter(int counter) async {
+  final file = await _localFile;
+
+  // Write the file
+  return file.writeAsString('$counter');
+}
+
+Future<int> readCounter() async {
+  try {
+    final file = await _localFile;
+
+    // Read the file
+    final contents = await file.readAsString();
+
+    return int.parse(contents);
+  } catch (e) {
+    // If encountering an error, return 0
+    return 0;
   }
 }
