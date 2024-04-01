@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../components/buttons.dart';
 import '../logic/services/receiver_service.dart';
@@ -26,7 +26,7 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
   @override
   void initState() {
     if (!Platform.isLinux) {
-      Wakelock.enable();
+      WakelockPlus.enable();
     }
 
     super.initState();
@@ -36,7 +36,7 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
   void dispose() {
     receiverService.kill();
     if (!Platform.isLinux) {
-      Wakelock.disable();
+      WakelockPlus.disable();
     }
 
     super.dispose();

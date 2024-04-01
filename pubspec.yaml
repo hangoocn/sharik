@@ -29,7 +29,7 @@ dependencies:
   flutter_markdown: ^0.6.10+5
 
   # todo linux support
-  wakelock: ^0.6.2
+  wakelock_plus: ^1.2.1
 
   widget_to_image:
     git: https://github.com/ivofernandes/widget_to_image.git

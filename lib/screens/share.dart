@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../components/buttons.dart';
 import '../components/logo.dart';
@@ -50,7 +50,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     if (_conController.isAnimating) _conController.stop();
 
     if (!Platform.isLinux) {
-      Wakelock.disable();
+      WakelockPlus.disable();
     }
 
     super.dispose();
@@ -75,7 +75,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
     if (!Platform.isLinux) {
-      Wakelock.enable();
+      WakelockPlus.enable();
     }
   }
 
