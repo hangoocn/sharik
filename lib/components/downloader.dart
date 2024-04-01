@@ -135,7 +135,7 @@ class _DownloaderState extends State<Downloader> {
           ),
         const SizedBox(height: 10),
         Text(
-          'Download Speed: $downloadSpeed',
+          downloadSpeed,
           textAlign: TextAlign.center,
         ),
       ],

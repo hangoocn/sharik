@@ -100,6 +100,7 @@ class SharikApp extends StatelessWidget {
         supportedLocales: languageListGen.map((e) => e.locale),
         title: 'Sharik',
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.teal[50],
           splashFactory: MaterialInkSplash.splashFactory,
           brightness: Brightness.light,
           inputDecorationTheme: InputDecorationTheme(

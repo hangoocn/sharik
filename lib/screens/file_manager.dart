@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/downloader.dart';
+import '../components/device_list.dart';
 import '../logic/services/receiver_service.dart';
 
 class FileManagerScreen extends StatefulWidget {
@@ -27,37 +28,7 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
         final receivers = context.watch<ReceiverService>().receivers;
 
         return Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 24),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: receivers.length,
-                  separatorBuilder: (BuildContext context, int index) => const Divider(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.amber[colorCodes[index]],
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text(
-                              '设备 ${receivers[index].os} ${receivers[index].addr.ip}',
-                            ),
-                            const SizedBox(height: 8),
-                            Text('文件 ${receivers[index].name}'),
-                            Downloader(url: receivers[index].url, device: receivers[index].addr.ip, name: receivers[index].name),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+          body: DeviceListWidget(devices: receivers),
         );
       },
     );
