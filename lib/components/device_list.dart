@@ -65,10 +65,10 @@ class DeviceList extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
-                        const OnlineIndicator()
+                        OnlineIndicator(isOnline: device.isOnline)
                       ],
                     )),
               ),
@@ -103,7 +103,7 @@ class DeviceList extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          if (device.isOnline) Container(
             alignment: Alignment.topLeft,
             padding: const EdgeInsets.all(8),
             child: Downloader(
@@ -111,7 +111,7 @@ class DeviceList extends StatelessWidget {
               device: device.ip,
               name: device.name,
             ),
-          ),
+          ) else const SizedBox(height: 8,),
         ],
       ),
     );

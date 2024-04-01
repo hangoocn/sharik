@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class OnlineIndicator extends StatelessWidget {
-  final double size;
+  final bool isOnline;
 
-  const OnlineIndicator({this.size = 10.0});
+  const OnlineIndicator({required this.isOnline});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size,
-      height: size,
+      width: 8,
+      height: 8,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.green,
+        color: isOnline ? Colors.green : Colors.grey,
         border: Border.all(
           color: Colors.white,
           width: 2.0,
