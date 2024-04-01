@@ -27,7 +27,7 @@ class _FileManagerScreenState extends State<FileManagerScreen> {
         final receivers = context.watch<ReceiverService>().receivers;
 
         return Scaffold(
-          body: DeviceListWidget(devices: receivers),
+          body: DeviceList(devices: receivers),
         );
       },
     );

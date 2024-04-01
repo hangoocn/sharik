@@ -4,96 +4,105 @@ import '../logic/services/receiver_service.dart';
 import 'downloader.dart';
 import 'online_indicator.dart';
 
-class DeviceListWidget extends StatelessWidget {
+class DeviceList extends StatelessWidget {
   final List<Receiver> devices;
-  final List data = [
-    {'color': const Color(0xffff6968)},
-    {'color': const Color(0xff7a54ff)},
-    {'color': const Color(0xffff8f61)},
-    {'color': const Color(0xff2ac3ff)},
-    {'color': const Color(0xff5a65ff)},
-    {'color': const Color(0xff96da45)},
-    {'color': const Color(0xffff6968)},
-    {'color': const Color(0xff7a54ff)},
-    {'color': const Color(0xffff8f61)},
-    {'color': const Color(0xff2ac3ff)},
-    {'color': const Color(0xff5a65ff)},
-    {'color': const Color(0xff96da45)},
-  ];
 
-  final colorwhite = Colors.white;
-
-  DeviceListWidget({required this.devices});
+  const DeviceList({required this.devices});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: GridView.builder(
-        itemCount: devices.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 5,
-          // crossAxisSpacing: 10
-        ),
-        itemBuilder: (context, index) {
-          final device = devices[index];
-          return Padding(
-            padding: EdgeInsets.zero,
-            child: Card(
-              color: data[index]['color'],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: Padding(
-                padding: EdgeInsets.zero,
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                device.os,
-                                style:
-                                    TextStyle(color: colorwhite, fontSize: 16),
-                              ),
-                              const SizedBox(width: 8),
-                              const OnlineIndicator(),
-                            ],
-                          ),
-                          Icon(
-                            Icons.more_vert,
-                            color: colorwhite,
-                            size: 16,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        device.addr.ip,
-                        style: TextStyle(fontSize: 16, color: colorwhite),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.all(8),
-                      child: Downloader(
-                          url: device.url,
-                          device: device.addr.ip,
-                          name: device.name),
-                    )
-                  ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = constraints.maxWidth;
+        var crossAxisCount = screenWidth ~/ 200; // Adjust based on screen width
+        crossAxisCount = crossAxisCount.clamp(1, 4); // Limit to 1-4 columns
+
+        return GridView.builder(
+          itemCount: devices.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+          ),
+          itemBuilder: (context, index) {
+            return _buildDeviceCard(devices[index]);
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildDeviceCard(Receiver device) {
+    return Card(
+      elevation: 4.0,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.folder,
+                  color: Color(
+                      0xFFfec855,), // Change icon color to similar color to #fec855
                 ),
               ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [Text(
+                    device.os,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color(
+                          0xFF525662,), // Change text color for device name
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(width: 8,),
+                  const OnlineIndicator()],
+                  )
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.more_vert),
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: 8.0,), // Adjust horizontal padding
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Files: 20',
+                  style: TextStyle(
+                    color: Color(
+                        0xFF5e616d,), // Change text color for number of files
+                  ),
+                ),
+                Text(
+                  'Space: 120 MB',
+                  style: TextStyle(
+                    color:
+                        Color(0xFF737680), // Change text color for usage space
+                  ),
+                ),
+              ],
             ),
-          );
-        },
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            padding: const EdgeInsets.all(8),
+            child: Downloader(
+                url: device.url, device: device.addr.ip, name: device.name,),
+          ),
+        ],
       ),
     );
   }
