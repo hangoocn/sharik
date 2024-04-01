@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/downloader.dart';
 import '../components/device_list.dart';
 import '../logic/services/receiver_service.dart';
 

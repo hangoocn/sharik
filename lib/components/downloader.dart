@@ -131,6 +131,7 @@ class _DownloaderState extends State<Downloader> {
       children: <Widget>[
         if (downloading)
           LinearProgressIndicator(
+            borderRadius: BorderRadius.circular(12),
             value: downloadProgress,
           ),
         const SizedBox(height: 10),
