@@ -49,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.9.0"
-  bootstrap_icons:
-    dependency: "direct main"
-    description:
-      name: bootstrap_icons
-      sha256: "06e46856af961f65bbddb8cee21e8066a8055be31a1f70c0592f8218515ad7fa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.9.1"
   build:
     dependency: transitive
     description:
@@ -339,6 +331,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_lucide:
+    dependency: "direct main"
+    description:
+      name: flutter_lucide
+      sha256: "50d42f2e775a6f447126b94935afc780498b597bd2de93aecaf01af4b7dfddab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   flutter_markdown:
     dependency: "direct main"
     description:
@@ -528,14 +528,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
-  lucide_icons:
-    dependency: "direct main"
-    description:
-      name: lucide_icons
-      sha256: fe7a21a1976478e39b3a4da8dd2f92b146094b07699572241f098bbf55d8954d
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.88.0"
   markdown:
     dependency: transitive
     description:

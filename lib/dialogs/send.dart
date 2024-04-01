@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/buttons.dart';
 import '../conf.dart';
@@ -97,7 +97,7 @@ class SendDialog extends StatelessWidget {
               Row(
                 children: [
                   const Icon(
-                    LucideIcons.fileText,
+                    LucideIcons.file_text,
                     size: 20,
                   ),
                   const SizedBox(width: 8),

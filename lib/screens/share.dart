@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wakelock/wakelock.dart';
@@ -122,7 +122,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: TransparentButton(
-                          const Icon(LucideIcons.chevronLeft, size: 28),
+                          const Icon(LucideIcons.chevron_left, size: 28),
                           () => _exitPage(),
                           TransparentButtonBackground.purpleDark,
                         ),
@@ -283,7 +283,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     child: Padding(
                       padding: const EdgeInsets.all(1),
                       child: Icon(
-                        LucideIcons.refreshCw,
+                        LucideIcons.refresh_cw,
                         size: 14,
                         color: Colors.grey.shade100,
                       ),
@@ -384,7 +384,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     children: [
                       TransparentButton(
                         Icon(
-                          LucideIcons.qrCode,
+                          LucideIcons.qr_code,
                           size: 17,
                           color: Colors.grey.shade50,
                         ),

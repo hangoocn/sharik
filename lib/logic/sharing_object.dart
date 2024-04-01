@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import '../conf.dart';
@@ -25,17 +25,17 @@ class SharingObject {
     switch (type) {
       case SharingObjectType.file:
         return data.contains(multipleFilesDelimiter)
-            ? BootstrapIcons.files
+            ? LucideIcons.files
             : _fileIcon;
 
       case SharingObjectType.text:
-        return BootstrapIcons.file_text;
+        return LucideIcons.file_text;
 
       case SharingObjectType.app:
-        return BootstrapIcons.file_binary;
+        return LucideIcons.file;
 
       case SharingObjectType.unknown:
-        return BootstrapIcons.file;
+        return LucideIcons.file;
     }
   }
 
@@ -44,7 +44,7 @@ class SharingObject {
   // todo that's a mess
   IconData get _fileIcon {
     const fileMap = {
-      ['exe', 'so']: BootstrapIcons.file_binary,
+      ['exe', 'so']: LucideIcons.file,
       // https://insights.stackoverflow.com/survey/2020#technology-programming-scripting-and-markup-languages-all-respondents
       [
         'js',
@@ -70,8 +70,8 @@ class SharingObject {
         'xml',
         'yaml',
         'toml'
-      ]: BootstrapIcons.file_code,
-      ['diff']: BootstrapIcons.file_diff,
+      ]: LucideIcons.file_code,
+      ['diff']: LucideIcons.file_diff,
       // https://support.microsoft.com/en-us/office/file-formats-that-are-supported-in-excel-0943ff2c-6014-4e8d-aaea-b83d51d46247
       [
         'xlsx',
@@ -84,20 +84,20 @@ class SharingObject {
         'xla',
         'xlw',
         'xlam'
-      ]: BootstrapIcons.file_excel,
+      ]: LucideIcons.file_spreadsheet,
       // https://fileinfo.com/filetypes/font#:~:text=Font%20Files&text=Most%20modern%20fonts%20are%20stored,TTF%2C%20and%20.
-      ['jfproj', 'woff', 'ttf', 'otf']: BootstrapIcons.file_font,
-      ['png', 'jpg', 'gif', 'svg', 'ai', 'psd']: BootstrapIcons.file_image,
-      ['mp3', 'odd']: BootstrapIcons.file_music,
-      ['pdf']: BootstrapIcons.file_pdf,
-      ['mp4', 'avi', 'webm', 'sub', 'srt', 'mpv']: BootstrapIcons.file_play,
+      ['jfproj', 'woff', 'ttf', 'otf']: LucideIcons.file,
+      ['png', 'jpg', 'gif', 'svg', 'ai', 'psd']: LucideIcons.file_image,
+      ['mp3', 'odd']: LucideIcons.file_music,
+      ['pdf']: LucideIcons.file,
+      ['mp4', 'avi', 'webm', 'sub', 'srt', 'mpv']: LucideIcons.file_video,
       // https://support.microsoft.com/en-us/office/file-formats-that-are-supported-in-powerpoint-252c6fa0-a4bc-41be-ac82-b77c9773f9dc
-      ['pptx', 'pptm', 'ppt', 'potx', 'potm', 'pot']: BootstrapIcons.file_ppt,
-      ['md', 'rmd', 'ltx', 'tex']: BootstrapIcons.file_richtext,
-      ['xps', 'odp']: BootstrapIcons.file_slides,
-      ['csv']: BootstrapIcons.file_spreadsheet,
-      ['doc', 'docm', 'docx', 'rtf']: BootstrapIcons.file_word,
-      ['zip', 'rar', '7z', 'tar', 'xf']: BootstrapIcons.file_zip
+      ['pptx', 'pptm', 'ppt', 'potx', 'potm', 'pot']: LucideIcons.file_sliders,
+      ['md', 'rmd', 'ltx', 'tex']: LucideIcons.file,
+      ['xps', 'odp']: LucideIcons.file,
+      ['csv']: LucideIcons.file_spreadsheet,
+      ['doc', 'docm', 'docx', 'rtf']: LucideIcons.file,
+      ['zip', 'rar', '7z', 'tar', 'xf']: LucideIcons.file
     };
 
     final fileExtension = name.toLowerCase().split('.').last;
@@ -110,7 +110,7 @@ class SharingObject {
       }
     }
 
-    return BootstrapIcons.file;
+    return LucideIcons.file;
   }
 
   SharingObject({required this.type, required this.data, required this.name});

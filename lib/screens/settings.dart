@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:provider/provider.dart';
 
 import '../components/buttons.dart';
@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: TransparentButton(
-                          const Icon(LucideIcons.chevronLeft, size: 28),
+                          const Icon(LucideIcons.chevron_left, size: 28),
                           () => _exit(context),
                           TransparentButtonBackground.def,
                         ),
@@ -229,7 +229,7 @@ class SettingsScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          leading: const Icon(LucideIcons.pieChart),
+          leading: const Icon(LucideIcons.pie_chart),
           onTap: () {
             openDialog(context, const TrackingConsentDialog());
           },
