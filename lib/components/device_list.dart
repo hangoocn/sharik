@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../logic/services/receiver_service.dart';
+import '../logic/device.dart';
 import 'downloader.dart';
 import 'online_indicator.dart';
 
 class DeviceList extends StatelessWidget {
-  final List<Receiver> devices;
+  final List<Device> devices;
 
   const DeviceList({required this.devices});
 
@@ -32,7 +32,7 @@ class DeviceList extends StatelessWidget {
     );
   }
 
-  Widget _buildDeviceCard(Receiver device) {
+  Widget _buildDeviceCard(Device device) {
     return Card(
       elevation: 4.0,
       child: Column(
@@ -45,27 +45,32 @@ class DeviceList extends StatelessWidget {
                 child: Icon(
                   Icons.folder,
                   color: Color(
-                      0xFFfec855,), // Change icon color to similar color to #fec855
+                    0xFFfec855,
+                  ), // Change icon color to similar color to #fec855
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [Text(
-                    device.os,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(
-                          0xFF525662,), // Change text color for device name
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(width: 8,),
-                  const OnlineIndicator()],
-                  )
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          device.os,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(
+                              0xFF525662,
+                            ), // Change text color for device name
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        const OnlineIndicator()
+                      ],
+                    )),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -75,7 +80,8 @@ class DeviceList extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: 8.0,), // Adjust horizontal padding
+              horizontal: 8.0,
+            ), // Adjust horizontal padding
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -83,7 +89,8 @@ class DeviceList extends StatelessWidget {
                   'Files: 20',
                   style: TextStyle(
                     color: Color(
-                        0xFF5e616d,), // Change text color for number of files
+                      0xFF5e616d,
+                    ), // Change text color for number of files
                   ),
                 ),
                 Text(
@@ -100,7 +107,10 @@ class DeviceList extends StatelessWidget {
             alignment: Alignment.topLeft,
             padding: const EdgeInsets.all(8),
             child: Downloader(
-                url: device.url, device: device.addr.ip, name: device.name,),
+              url: device.url,
+              device: device.ip,
+              name: device.name,
+            ),
           ),
         ],
       ),

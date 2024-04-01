@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:ackee_dart/ackee_dart.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +12,7 @@ import 'package:widget_to_image/widget_to_image.dart';
 
 import '../components/page_router.dart';
 import '../conf.dart';
+import '../logic/device.dart';
 import '../logic/language.dart';
 import '../logic/sharing_object.dart';
 import '../logic/theme.dart';
@@ -38,11 +38,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     try {
       Hive.registerAdapter(SharingObjectTypeAdapter());
       Hive.registerAdapter(SharingObjectAdapter());
+      Hive.registerAdapter(DeviceAdapter());
 
       await Hive.initFlutter('sharik_storage');
 
       await Hive.openBox<String>('strings');
       await Hive.openBox<SharingObject>('history');
+      await Hive.openBox<Device>('devices');
 
       context.read<LanguageManager>().init();
       context.read<ThemeManager>().init();
@@ -62,7 +64,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       try {
         if (Platform.isAndroid || Platform.isIOS) {
           final sharedFile = await ReceiveSharingIntent.getInitialMedia();
-          final sharedText = await ReceiveSharingIntent.getInitialText();
 
           if (sharedFile.length > 1) {
             SharikRouter.navigateTo(
@@ -82,31 +83,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
               name: SharingObject.getSharingName(
                 SharingObjectType.file,
                 sharedFile[0].path.replaceFirst('file://', ''),
-              ),
-            );
-
-            final _history = Hive.box<SharingObject>('history').values.toList();
-            _history.removeWhere((element) => element.name == _file.name);
-            _history.insert(0, _file);
-            await Hive.box<SharingObject>('history').clear();
-            await Hive.box<SharingObject>('history').addAll(_history);
-
-            SharikRouter.navigateTo(
-              _globalKey,
-              Screens.sharing,
-              RouteDirection.right,
-              _file,
-            );
-            return;
-          }
-
-          if (sharedText != null) {
-            final _file = SharingObject(
-              type: SharingObjectType.text,
-              data: sharedText,
-              name: SharingObject.getSharingName(
-                SharingObjectType.text,
-                sharedText,
               ),
             );
 
@@ -177,7 +153,6 @@ Future<void> _receivingIntentListener(GlobalKey key) async {
       : (await WidgetToImage.repaintBoundaryToImage(key)).buffer.asUint8List();
 
   final files = ReceiveSharingIntent.getMediaStream();
-  final texts = ReceiveSharingIntent.getTextStream();
 
   files.listen((sharedFile) {
     if (sharedFile.length > 1) {
@@ -205,23 +180,6 @@ Future<void> _receivingIntentListener(GlobalKey key) async {
         ),
       );
     }
-  });
-
-  texts.listen((sharedText) {
-    SharikRouter.navigateToFromImage(
-      byteData,
-      Screens.sharing,
-      RouteDirection.right,
-      SharingObject(
-        type: SharingObjectType.text,
-        data: sharedText,
-        name: SharingObject.getSharingName(
-          SharingObjectType.text,
-          sharedText,
-        ),
-      ),
-    );
-    return;
   });
 }
 

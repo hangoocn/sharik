@@ -12,7 +12,6 @@ import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 import 'open_dialog.dart';
 import 'share_app.dart';
-import 'share_text.dart';
 
 class SendDialog extends StatelessWidget {
   const SendDialog({Key? key}) : super(key: key);
@@ -91,33 +90,6 @@ class SendDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            child: TransparentButton(
-              Row(
-                children: [
-                  const Icon(
-                    LucideIcons.file_text,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    context.l.homeSelectText,
-                    style:
-                        GoogleFonts.getFont(context.l.fontAndika, fontSize: 18),
-                  ),
-                ],
-              ),
-              () async {
-                final text = await openDialog(context, ShareTextDialog());
-                if (text != null) {
-                  Navigator.of(context).pop(text);
-                }
-              },
-              TransparentButtonBackground.def,
-              border: true,
-            ),
-          ),
           if (Platform.isAndroid || Platform.isIOS) const SizedBox(height: 12),
           if (Platform.isAndroid)
             SizedBox(

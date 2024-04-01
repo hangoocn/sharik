@@ -4,10 +4,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../components/buttons.dart';
@@ -435,14 +434,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   ),
                 ),
                 const SizedBox(height: 24),
-                AnimatedSize(
-                  duration: const Duration(milliseconds: 200),
-                  child: _stateShowQr
-                      ? QrImage(
-                          data: displayAddress,
-                          foregroundColor: context.t.textTheme.button!.color,
-                        )
-                      : const SizedBox(),
+                const AnimatedSize(
+                  duration: Duration(milliseconds: 200),
+                  child: Text('QR Image Placeholder'),
                 ),
               ],
             );

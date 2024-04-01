@@ -8,7 +8,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'gen/languages.dart';
 import 'logic/language.dart';
 import 'logic/theme.dart';
-import 'screens/file_manager.dart';
+import 'screens/loading.dart';
 import 'utils/material_ink_well.dart';
 
 // todo before migrating locales:
@@ -164,7 +164,7 @@ class SharikApp extends StatelessWidget {
           highlightColor: Colors.deepPurple.shade100.withOpacity(0.8),
         ),
         themeMode: context.watch<ThemeManager>().theme,
-        home: FileManagerScreen(),
+        home: LoadingScreen(),
       ),
     );
   }

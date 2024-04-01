@@ -1,8 +1,9 @@
 import 'dart:io' show Platform;
 
-import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:hive/hive.dart';
+
 import '../conf.dart';
 
 part 'sharing_object.g.dart';
@@ -27,10 +28,6 @@ class SharingObject {
         return data.contains(multipleFilesDelimiter)
             ? LucideIcons.files
             : _fileIcon;
-
-      case SharingObjectType.text:
-        return LucideIcons.file_text;
-
       case SharingObjectType.app:
         return LucideIcons.file;
 
@@ -119,9 +116,6 @@ class SharingObject {
     switch (type) {
       case SharingObjectType.file:
         return '${data.contains(multipleFilesDelimiter) ? '${data.split(multipleFilesDelimiter).length}: ' : ''}${data.split(multipleFilesDelimiter).map((e) => e.split(Platform.isWindows ? '\\' : '/').last).join(" ")}';
-      case SharingObjectType.text:
-        final _ = data.trim().replaceAll('\n', ' ');
-        return _.length >= 101 ? _.substring(0, 100) : _;
       case SharingObjectType.app:
         throw Exception('when type is app, name is necessary');
       case SharingObjectType.unknown:
@@ -136,11 +130,9 @@ enum SharingObjectType {
   @HiveField(0)
   file,
   @HiveField(1)
-  text,
-  @HiveField(2)
   app,
 // If, in the future, we introduce more types, the unknown type will be used as a fallback, and won't break the receiver function
-  @HiveField(3)
+  @HiveField(2)
   unknown
 }
 
@@ -148,9 +140,6 @@ SharingObjectType string2fileType(String type) {
   switch (type) {
     case 'file':
       return SharingObjectType.file;
-
-    case 'text':
-      return SharingObjectType.text;
 
     case 'app':
       return SharingObjectType.app;

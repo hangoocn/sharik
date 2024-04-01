@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -132,12 +133,14 @@ class NetworkAddr {
 class Receiver {
   final NetworkAddr addr;
 
+  final String id;
   final String os;
-  final String name;
+  String name;
   final String url;
-  final SharingObjectType type;
+  SharingObjectType type;
 
-  const Receiver({
+  Receiver({
+    required this.id,
     required this.addr,
     required this.os,
     required this.name,
@@ -149,6 +152,7 @@ class Receiver {
     final parsed = jsonDecode(json) as Map;
 
     return Receiver(
+      id: addr.ip,
       addr: addr,
       os: parsed['os'],
       name: parsed['name'],

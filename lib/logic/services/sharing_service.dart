@@ -98,15 +98,6 @@ class SharingService extends ChangeNotifier {
         continue;
       }
 
-      // If we are sharing text
-      if (_file.type == SharingObjectType.text) {
-        request.response.headers.contentType =
-            ContentType('text', 'plain', charset: 'utf-8');
-        request.response.write(_file.data);
-        request.response.close();
-        continue;
-      }
-
       // If we are sharing only one file that is not a folder
       if (!_file.data.contains(multipleFilesDelimiter) &&
           FileSystemEntity.typeSync(_file.data) !=
